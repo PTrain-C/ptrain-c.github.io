@@ -36,7 +36,7 @@ Add a new `.mdx` file in `src/content/projects/`. Frontmatter:
 - `others`: `{ part, by }` for anything someone else owned.
 - `outcome`: where the project ended up.
 - `skills`: skill ids from `src/data/skills.ts`. An unknown id fails the build.
-- `theme`: the page's look. One of `board`, `track` (racing), `cigar` (guitar), `felt` (poker), `hydro`, `bench` (breadboard), `space`, `naval`, `quantum`.
+- `theme`: the page's look. One of `board`, `track` (racing), `cigar` (guitar), `felt` (poker), `hydro`, `bench` (breadboard), `space`, `naval`, `quantum`, `robot` (FRC KitBot).
 - `hero`: how the top is arranged: `split`, `poster` (image fills the right), `tall` (portrait photo that hangs into the page), or `scene` (just the theme art).
 - `rail`: where "My part / Skills" sits: `right`, `left`, or `top`.
 - `cover` (card image) and `heroImage` (top of page), both paths inside `public/`.

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 625" role="img" aria-label="A fanned poker hand on green felt next to a Raspberry Pi terminal running poke_the_poker.py">
+  <defs>
+    <radialGradient id="g" cx="0.65" cy="0.45" r="0.75">
+      <stop offset="0" stop-color="#2c6a4d"/>
+      <stop offset="1" stop-color="#133426"/>
+    </radialGradient>
+    <style>
+      .m { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; }
+      .r { font-family: Georgia, serif; font-weight: 700; }
+    </style>
+  </defs>
+  <rect width="800" height="625" fill="url(#g)"/>
+  <rect x="-200" y="40" width="1200" height="545" rx="272" fill="none" stroke="#efe5cc" stroke-opacity="0.16" stroke-width="3"/>
+
+  <!-- terminal -->
+  <g transform="translate(36 150)">
+    <rect width="372" height="300" rx="12" fill="#0e1714" stroke="#efe5cc" stroke-opacity="0.25"/>
+    <rect width="372" height="30" rx="12" fill="#1b2a24"/>
+    <rect y="18" width="372" height="12" fill="#1b2a24"/>
+    <circle cx="20" cy="15" r="5" fill="#d5644f"/><circle cx="38" cy="15" r="5" fill="#e3ad48"/><circle cx="56" cy="15" r="5" fill="#7fbf6a"/>
+    <text class="m" x="186" y="20" fill="#efe5cc" fill-opacity="0.55" text-anchor="middle">pi@raspberrypi: ~</text>
+    <text class="m" x="16" y="62" fill="#7fdc98">pi@raspberrypi:~ $<tspan fill="#efe5cc"> python3 poke_the_poker.py</tspan></text>
+    <text class="m" x="16" y="88" fill="#efe5cc" fill-opacity="0.75">Subscribed to topic: pokethepoker</text>
+    <text class="m" x="16" y="112" fill="#efe5cc" fill-opacity="0.75">Waiting for player decision...</text>
+    <text class="m" x="16" y="136" fill="#efe5cc" fill-opacity="0.75">Sound Sensor Value: 612</text>
+    <text class="m" x="16" y="160" fill="#e3ad48">Sound detected after 2.418 s</text>
+    <text class="m" x="16" y="196" fill="#efe5cc" fill-opacity="0.55">== Game summary ==</text>
+    <text class="m" x="16" y="220" fill="#efe5cc" fill-opacity="0.75">Player 1: average 71.4 %</text>
+    <text class="m" x="16" y="244" fill="#efe5cc" fill-opacity="0.75">Player 2 (folded): 38.0 %</text>
+    <rect x="16" y="262" width="9" height="16" fill="#7fdc98"/>
+  </g>
+
+  <!-- fanned hand -->
+  <g transform="translate(560 210)">
+    <g transform="rotate(-24 60 300)"><rect width="120" height="170" rx="10" fill="#fbf7ee" stroke="#000" stroke-opacity="0.2"/><text class="r" x="14" y="36" font-size="28" fill="#1a1a1a">10</text><text x="60" y="110" font-size="44" text-anchor="middle" fill="#1a1a1a">♠</text></g>
+    <g transform="rotate(-12 60 300)"><rect width="120" height="170" rx="10" fill="#fbf7ee" stroke="#000" stroke-opacity="0.2"/><text class="r" x="14" y="36" font-size="28" fill="#b3263a">J</text><text x="60" y="110" font-size="44" text-anchor="middle" fill="#b3263a">♦</text></g>
+    <g><rect width="120" height="170" rx="10" fill="#fbf7ee" stroke="#000" stroke-opacity="0.2"/><text class="r" x="14" y="36" font-size="28" fill="#1a1a1a">Q</text><text x="60" y="110" font-size="44" text-anchor="middle" fill="#1a1a1a">♣</text></g>
+    <g transform="rotate(12 60 300)"><rect width="120" height="170" rx="10" fill="#fbf7ee" stroke="#000" stroke-opacity="0.2"/><text class="r" x="14" y="36" font-size="28" fill="#b3263a">K</text><text x="60" y="110" font-size="44" text-anchor="middle" fill="#b3263a">♥</text></g>
+    <g transform="rotate(24 60 300)"><rect width="120" height="170" rx="10" fill="#fbf7ee" stroke="#000" stroke-opacity="0.2"/><text class="r" x="14" y="36" font-size="28" fill="#1a1a1a">A</text><text x="60" y="110" font-size="44" text-anchor="middle" fill="#1a1a1a">♠</text></g>
+  </g>
+
+  <!-- chips -->
+  <g transform="translate(520 470)">
+    <g fill="#b3263a" stroke="#fbf7ee" stroke-width="3"><ellipse cx="0" cy="40" rx="34" ry="11"/><ellipse cx="0" cy="30" rx="34" ry="11"/><ellipse cx="0" cy="20" rx="34" ry="11"/><ellipse cx="0" cy="10" rx="34" ry="11"/></g>
+    <g fill="#1f3f8a" stroke="#fbf7ee" stroke-width="3"><ellipse cx="78" cy="48" rx="34" ry="11"/><ellipse cx="78" cy="38" rx="34" ry="11"/></g>
+    <g fill="#e3ad48" stroke="#fbf7ee" stroke-width="3"><ellipse cx="156" cy="44" rx="34" ry="11"/><ellipse cx="156" cy="34" rx="34" ry="11"/><ellipse cx="156" cy="24" rx="34" ry="11"/></g>
+  </g>
+</svg>

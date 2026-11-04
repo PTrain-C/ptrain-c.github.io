@@ -25,8 +25,9 @@ const keySkills = categories
 const focus = [
   'analog circuits',
   'PCB design',
-  'ASIC validation',
+  'analog IC bring-up',
   'quantum hardware',
+  'FPGA design',
   'flight hardware test',
 ];
 
@@ -34,7 +35,7 @@ const focus = [
 const facts = [
   { big: '13', label: 'interns I led defining SWAP-C constraints at Lockheed Martin' },
   { big: '140+', label: 'participants at Q³ Qompute @ USC in 2025, which I helped organize' },
-  { big: 'Class B', label: 'NASA risk classification of the space hardware I test at Draper' },
+  { big: 'Class B', label: 'NASA risk standard the spaceflight hardware I test at Draper is built to' },
   { big: String(projects.length), label: 'projects, each with my part spelled out' },
 ];
 ---
@@ -60,12 +61,14 @@ const facts = [
           </span>
         </p>
         <p class="bio rise" style="--d:3">
-          Last summer I was at Lockheed Martin writing and verifying requirements on the Aegis Combat
-          System. This fall I took a semester off from classes to work at Draper, where I help run
-          acceptance testing on flight hardware for a NASA program and do design validation testing on
-          a voltage regulator for an ASIC team. Before that I designed an all-analog safety interlock
-          board for USC Racing and built a notch filter from the transfer function up. I've seen how
-          requirements get written and how hardware gets proven. What I want next is to design it.
+          This past summer I was at Lockheed Martin, writing and verifying requirements for the Aegis
+          Combat System. This fall I took a semester off from classes to work at Draper. I help run
+          acceptance testing on flight hardware for a spaceflight program, and I bring up an analog LDO
+          on the bench alongside the IC design team. Before that, I designed an all-analog safety
+          interlock board for USC Racing and built a notch filter from the transfer function up. Right
+          now I’m building a <a href={href('/projects/qrng')}>quantum random number generator</a> in
+          SystemVerilog on an FPGA. I’ve seen how requirements get written and how hardware gets
+          proven. What I want next is to design it.
         </p>
         <div class="ctas rise" style="--d:4">
           <a class="btn gold" href={href('/projects')}>See projects</a>
@@ -260,6 +263,13 @@ const facts = [
     max-width: 34rem;
     margin: 1.25rem 0 2rem;
     color: var(--silk-2);
+  }
+  .bio a {
+    color: var(--gold-soft);
+    text-decoration-color: color-mix(in oklab, var(--gold) 60%, transparent);
+  }
+  .bio a:hover {
+    color: var(--gold);
   }
   .ctas {
     display: flex;

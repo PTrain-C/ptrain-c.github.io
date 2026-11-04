@@ -413,6 +413,13 @@ a.pill:hover::before {
   --accent-soft: #dcd4fb;
   --ink-accent: #53478a;
 }
+[data-theme='robot'] {
+  --scene: #1c2433;
+  --scene-deep: #121826;
+  --accent: #f0a24a;
+  --accent-soft: #f7cf9b;
+  --ink-accent: #9a4c12;
+}
 
 /* ---- Prose extras: tables, math, code ------------------------------------ */
 

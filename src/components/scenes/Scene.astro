@@ -8,6 +8,7 @@ import BenchScene from './BenchScene.astro';
 import SpaceScene from './SpaceScene.astro';
 import NavalScene from './NavalScene.astro';
 import QuantumScene from './QuantumScene.astro';
+import RobotScene from './RobotScene.astro';
 
 interface Props {
   theme?: string;
@@ -23,6 +24,7 @@ const scenes: Record<string, any> = {
   space: SpaceScene,
   naval: NavalScene,
   quantum: QuantumScene,
+  robot: RobotScene,
 };
 const Cmp = scenes[theme];
 ---
