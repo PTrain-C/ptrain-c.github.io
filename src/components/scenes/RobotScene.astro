@@ -1,0 +1,125 @@
+---
+// FRC: a side view of the 2024 KitBot (the season I was president). Drivetrain
+// with bumpers, the angled two-stage launcher on top, and a note leaving it
+// along a dashed arc toward the speaker.
+const wheels = [1010, 1200, 1390];
+// Launcher side plate, leaning back from the front of the chassis.
+const plate = 'M1110 480 L1250 480 L1340 190 L1215 172 Z';
+const rollers = [
+  { x: 1188, y: 420 },
+  { x: 1222, y: 316 },
+  { x: 1262, y: 222 },
+];
+---
+
+<svg class="scene" viewBox="0 0 1600 720" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
+  <!-- carpet and field tape -->
+  <path d="M760 630 H1600" stroke="var(--accent)" stroke-opacity="0.25" stroke-width="2" />
+  {[0, 1, 2, 3, 4, 5].map((i) => <path d={`M${820 + i * 140} 652 h70`} stroke="var(--silk)" stroke-opacity="0.12" stroke-width="3" />)}
+
+  <!-- speaker opening, top right -->
+  <path d="M1500 70 H1600 M1500 70 V130 L1600 150" fill="none" stroke="var(--silk)" stroke-opacity="0.18" stroke-width="3" />
+
+  <!-- note trajectory -->
+  <path d="M1300 196 C 1360 80, 1460 60, 1540 104" fill="none" stroke="var(--accent)" stroke-opacity="0.45" stroke-width="3" stroke-dasharray="8 10" />
+  <g class="note">
+    <ellipse cx="1430" cy="80" rx="38" ry="14" fill="none" stroke="var(--accent)" stroke-width="10" />
+  </g>
+
+  <!-- wheels -->
+  {
+    wheels.map((x) => (
+      <g transform={`translate(${x} 590)`}>
+        <circle r="38" fill="var(--scene-deep)" stroke="var(--silk)" stroke-opacity="0.45" stroke-width="3" />
+        <circle r="8" fill="var(--silk)" fill-opacity="0.4" />
+      </g>
+    ))
+  }
+
+  <!-- chassis rails -->
+  <rect x="950" y="470" width="500" height="44" rx="4" fill="var(--scene-deep)" stroke="var(--silk)" stroke-opacity="0.35" stroke-width="2" />
+  {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => <circle cx={980 + i * 50} cy="492" r="4" fill="var(--silk)" fill-opacity="0.25" />)}
+
+  <!-- launcher -->
+  <path d={plate} fill="var(--silk)" fill-opacity="0.06" stroke="var(--silk)" stroke-opacity="0.5" stroke-width="3" stroke-linejoin="round" />
+  <path d="M1130 470 L1232 178" stroke="var(--silk)" stroke-opacity="0.2" stroke-width="2" />
+  {
+    rollers.map((r) => (
+      <g transform={`translate(${r.x} ${r.y})`}>
+        <circle r="28" fill="var(--scene-deep)" stroke="var(--accent)" stroke-opacity="0.8" stroke-width="3" />
+        <g class="spin">
+          <path d="M-20 0 H20 M0 -20 V20" stroke="var(--accent)" stroke-opacity="0.6" stroke-width="3" />
+        </g>
+      </g>
+    ))
+  }
+  <!-- motor -->
+  <rect x="1262" y="380" width="70" height="34" rx="8" transform="rotate(-72 1297 397)" fill="var(--scene-deep)" stroke="var(--silk)" stroke-opacity="0.4" stroke-width="2" />
+
+  <!-- bumpers -->
+  <rect x="926" y="514" width="548" height="58" rx="12" fill="#b8383a" />
+  <rect x="926" y="514" width="548" height="58" rx="12" fill="none" stroke="#000" stroke-opacity="0.25" stroke-width="2" />
+  <text x="1200" y="556" class="num">7654</text>
+
+  <text x="1474" y="684" class="tag">2024 KitBot</text>
+</svg>
+
+<style>
+  .scene {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .num {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 40px;
+    letter-spacing: 0.06em;
+    fill: #fff;
+    text-anchor: middle;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 15px;
+    fill: var(--silk);
+    fill-opacity: 0.55;
+    text-anchor: end;
+  }
+  .spin {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: spin 1.2s linear infinite;
+  }
+  @keyframes spin {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+  .note {
+    animation: fly 3.2s var(--ease) infinite;
+  }
+  @keyframes fly {
+    0% {
+      transform: translate(-130px, 116px);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(110px, 24px);
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .spin,
+    .note {
+      animation: none;
+    }
+  }
+</style>

@@ -20,7 +20,7 @@ export const categories: SkillCategory[] = [
     tone: 'forest',
     skills: [
       { id: 'kicad', name: 'KiCAD', featured: true },
-      { id: 'altium', name: 'Altium Designer', note: 'learning' },
+      { id: 'altium', name: 'Altium Designer' },
       { id: 'schematic-capture', name: 'Schematic capture', featured: true },
       { id: 'pcb-layout', name: 'PCB layout', featured: true },
       { id: 'drc', name: 'Design rule checks (DRC)' },
@@ -101,8 +101,8 @@ export const categories: SkillCategory[] = [
       { id: 'data-analysis', name: 'Data analysis' },
       { id: 'matlab', name: 'MATLAB', featured: true },
       { id: 'java', name: 'Java', note: 'FIRST Robotics' },
-      { id: 'verilog', name: 'Verilog', note: 'learning, HDLBits' },
-      { id: 'cocotb', name: 'cocotb', note: 'learning' },
+      { id: 'verilog', name: 'SystemVerilog / Verilog', featured: true },
+      { id: 'cocotb', name: 'cocotb' },
     ],
   },
   {

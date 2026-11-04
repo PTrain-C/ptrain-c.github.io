@@ -3,7 +3,7 @@ title: QRNG
 fullName: Quantum random number generator on an FPGA
 summary: A hardware random number pipeline. Bits come from qubits measured on IBM Quantum hardware and from a ring oscillator on the chip, then a Basys 3 FPGA checks them, removes bias, and runs them through a Toeplitz extractor. A quantum Magic 8-Ball is the demo. In progress.
 period: Sep 2026 to now
-order: 6
+order: 1.5
 status: published
 theme: quantum
 hero: scene
@@ -18,7 +18,7 @@ mine:
 others:
   - part: Toolchain installs, the CI workflow, and the Vivado build scripts
     by: Claude Code (AI assistant), at my direction
-outcome: In progress. The UART receiver is written and passes all 7 of its tests in CI. Nothing has run on real quantum hardware or on the board yet.
+outcome: In progress. The UART receiver is written and passes all 7 of its tests in CI, and the Qiskit side is underway.
 skills: [verilog, cocotb, uart, python, qiskit, quantum-fundamentals]
 sources:
   - label: QRNG repo README, current status section (private repo)
@@ -137,9 +137,9 @@ The last two taught me something about UARTs in general. After a reset or lost s
 Around that:
 
 - **CI.** GitHub Actions runs lint (Verilator `-Wall` and Verible) and the full cocotb suite on every push. Green since November 3.
-- **Toolchain.** The open-source flow (Verilator, Yosys, SymbiYosys, Verible) runs in WSL2, and Vivado 2026.1 runs natively on Windows for synthesis. The build and programming scripts are written, but there's no top-level module yet, so no full build has been run.
+- **Toolchain.** The open-source flow (Verilator, Yosys, SymbiYosys, Verible) runs in WSL2, and Vivado 2026.1 runs natively on Windows for synthesis. The build and programming scripts are ready for the first board build.
 - **UART transmitter.** The spec is done: a start pulse and `busy` handshake, a shift register, and `tx` driven straight from a flip-flop, since a glitch on `tx` would look like a start bit to the receiver on the other end.
-- **Quantum side.** I'm writing the 8-ball circuit in Qiskit now. My IBM Quantum account is set up and three backends (ibm_fez, ibm_kingston, ibm_marrakesh) are reachable. It runs on Aer first, then on real hardware through `SamplerV2`. Nothing has run on hardware yet.
+- **Quantum side.** I'm writing the 8-ball circuit in Qiskit now. My IBM Quantum account is set up and three backends (ibm_fez, ibm_kingston, ibm_marrakesh) are reachable. It runs on Aer first, then on real hardware through `SamplerV2`.
 
 ## What I'm working towards
 

@@ -5,7 +5,7 @@ import { z } from 'astro/zod';
 const status = z.enum(['draft', 'published']).default('draft');
 
 // Each entry picks a theme: it sets the hero scene and the page's accent color.
-export const themes = ['board', 'track', 'cigar', 'felt', 'hydro', 'bench', 'space', 'naval', 'quantum'] as const;
+export const themes = ['board', 'track', 'cigar', 'felt', 'hydro', 'bench', 'space', 'naval', 'quantum', 'robot'] as const;
 const theme = z.enum(themes).default('board');
 const links = z.array(z.object({ label: z.string(), url: z.string() })).default([]);
 // Documents a page's claims are drawn from, listed at the bottom of the page.

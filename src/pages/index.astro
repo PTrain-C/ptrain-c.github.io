@@ -27,6 +27,7 @@ const focus = [
   'PCB design',
   'ASIC validation',
   'quantum hardware',
+  'FPGA design',
   'flight hardware test',
 ];
 
@@ -65,7 +66,9 @@ const facts = [
           acceptance testing on flight hardware for a NASA program and do design validation testing on
           a voltage regulator for an ASIC team. Before that I designed an all-analog safety interlock
           board for USC Racing and built a notch filter from the transfer function up. I've seen how
-          requirements get written and how hardware gets proven. What I want next is to design it.
+          requirements get written and how hardware gets proven. What I want next is to design it, which is
+          why I'm writing RTL by hand for a <a href={href('/projects/qrng')}>quantum random number generator</a> on
+          an FPGA.
         </p>
         <div class="ctas rise" style="--d:4">
           <a class="btn gold" href={href('/projects')}>See projects</a>
@@ -260,6 +263,13 @@ const facts = [
     max-width: 34rem;
     margin: 1.25rem 0 2rem;
     color: var(--silk-2);
+  }
+  .bio a {
+    color: var(--gold-soft);
+    text-decoration-color: color-mix(in oklab, var(--gold) 60%, transparent);
+  }
+  .bio a:hover {
+    color: var(--gold);
   }
   .ctas {
     display: flex;
