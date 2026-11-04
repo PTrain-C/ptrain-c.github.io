@@ -4,23 +4,23 @@ role: Microelectronics Integration & Test Engineering Intern
 unit: Space Systems
 location: Cambridge, MA
 start: Sep 2026
-end: Present
+end: Dec 2026
 current: true
 order: 1
-summary: Bench bring-up of an analog LDO alongside the IC design team, and acceptance testing on flight hardware for a spaceflight program built to NASA Class B risk standards.
+summary: Bench bring-up of an analog LDO alongside the IC design team, and acceptance testing on flight hardware for a spaceflight program.
 highlights:
-  - Bringing up an analog LDO on the bench alongside the IC design team, characterizing line and load transient response with Source Measure Units (SMUs)
-  - Executing acceptance testing on 30 flight modules for a spaceflight program built to NASA Class B risk standards, verifying performance and power after each random vibration and thermal cycling exposure
-  - Wrote a MATLAB script that plotted vibration test data and showed an aborted test was a bad sensor reading, not a bad unit, then presented it to the review board
+  - "Bringing up a later-iteration analog LDO on the bench alongside the analog IC design team: powered checks, automated line and load transient runs on Source Measure Units, and an early look into thermal issues the team flagged. Results feed the next design iteration"
+  - "Running the full acceptance flow on flight modules for a spaceflight program (30 units across 9 batches; I run batch 5 onward): performance, random vibration, thermal cycling, voltage and charge/discharge checks, and post-processing"
+  - Root-cause unexpected test results to setup vs hardware; process test data in MATLAB and build plots in Excel that go to the customer, program management, and mission assurance
   - Handle delicate flight hardware under flight hardware procedures
-skills: [design-validation, smu, acceptance-testing, vibration-testing, thermal-cycling, charge-discharge, flight-hardware, matlab, nasa-class-b]
+skills: [analog-ic-bring-up, acceptance-testing, environmental-test, smu, test-scripts, test-data-processing, charge-discharge, flight-hardware, matlab, excel]
 theme: space
 rail: top
 ---
 import Chain from '../../components/content/Chain.astro';
 import ThermalProfile from '../../components/content/ThermalProfile.astro';
 
-{/* Keep this generic: no program specifics beyond "a spaceflight program built to NASA Class B risk standards" and "flight hardware". Draper specifics are FOUO: only what is written on this page may be published. No hard numbers, design details, or parts. The scope of the work is fine. */}
+{/* Keep this generic: no program specifics beyond "a spaceflight program" and "flight hardware". Draper specifics are FOUO: only what is written on this page may be published. No hard numbers, design details, or parts. The scope of the work is fine. */}
 
 I took this semester off from classes on purpose. A normal school schedule wasn't going to give me hands-on hardware time, and Draper would. I'm on the Microelectronics Integration & Test team in the Space Systems business area, and I work on two things.
 
@@ -30,7 +30,7 @@ This one came in October and it's the work I most want to be doing. Before an an
 
 ## Flight hardware acceptance testing
 
-The other half is acceptance testing on about 5 batches of 6 identical modules, around 30 units, for a spaceflight program built to NASA Class B risk standards. The hardware design and the test plan were done before I got here. I help run it, and it's the same routine every batch.
+The other half is acceptance testing on 30 identical flight modules across 9 batches of 4 to 6 for a spaceflight program. I run batch 5 onward, including post-processing. The hardware design and the test plan were done before I got here. I help run it, and it's the same routine every batch.
 
 <Chain
   label="What goes into accepting a batch"
@@ -44,8 +44,4 @@ The other half is acceptance testing on about 5 batches of 6 identical modules, 
 
 <ThermalProfile />
 
-Because the routine is the same each time, a result that looks wrong stands out. During one vibration test the script aborted. I plotted the data in MATLAB and showed that the cause was a bad sensor reading, not a bad unit, and presented that to the review board.
-
-## Class B, briefly
-
-NASA sorts missions into risk classes A through D under NPR 8705.4, and this program is built to the Class B standard. Class B is one step below A: high priority work with a low tolerance for risk, which shows up as tighter requirements on parts, workmanship, handling, and testing than a Class C or D mission would carry.
+Because the routine is the same each time, a result that looks wrong stands out. During one vibration test the script aborted. I plotted the data in MATLAB and showed the cause was a bad reading, not a bad unit, and presented that to the review board. That kind of setup-versus-hardware call comes up regularly.

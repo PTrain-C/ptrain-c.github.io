@@ -8,7 +8,7 @@ export type SkillCategory = {
   name: string;
   blurb: string;
   // Hue for this category's pills and accents (see --cat-* in global.css).
-  tone: 'forest' | 'sky' | 'honey' | 'plum' | 'slate' | 'moss' | 'violet' | 'rose' | 'teal';
+  tone: 'forest' | 'sky' | 'honey' | 'plum' | 'slate' | 'moss' | 'violet' | 'rose' | 'teal' | 'cobalt';
   skills: Skill[];
 };
 
@@ -20,11 +20,9 @@ export const categories: SkillCategory[] = [
     tone: 'forest',
     skills: [
       { id: 'kicad', name: 'KiCAD', featured: true },
-      { id: 'altium', name: 'Altium Designer' },
       { id: 'schematic-capture', name: 'Schematic capture', featured: true },
       { id: 'pcb-layout', name: 'PCB layout', featured: true },
       { id: 'drc', name: 'Design rule checks (DRC)' },
-      { id: 'fab-output', name: 'Fabrication output' },
     ],
   },
   {
@@ -50,7 +48,7 @@ export const categories: SkillCategory[] = [
     skills: [
       { id: 'soldering', name: 'Hand-soldering', featured: true },
       { id: 'bench-tuning', name: 'Bench tuning' },
-      { id: 'design-verification', name: 'Design verification' },
+      { id: 'netlist-verification', name: 'Netlist verification' },
       { id: 'oscilloscope', name: 'Oscilloscope measurement' },
       { id: 'breadboarding', name: 'Breadboard prototyping' },
       { id: 'logic-analyzer', name: 'Logic analyzer debugging' },
@@ -60,18 +58,18 @@ export const categories: SkillCategory[] = [
   {
     id: 'test',
     name: 'Integration & Test',
-    blurb: 'Validating chips and proving flight-grade hardware.',
+    blurb: 'Bringing up chips and testing flight hardware.',
     tone: 'moss',
     skills: [
+      { id: 'analog-ic-bring-up', name: 'Analog IC bench bring-up', featured: true },
       { id: 'acceptance-testing', name: 'Acceptance testing', featured: true },
-      { id: 'vibration-testing', name: 'Vibration testing' },
-      { id: 'thermal-cycling', name: 'Thermal cycling' },
-      { id: 'nasa-class-b', name: 'NASA Class B risk standards' },
+      { id: 'environmental-test', name: 'Environmental test', note: 'vibration, thermal cycling' },
       { id: 'charge-discharge', name: 'Charge and discharge testing' },
       { id: 'flight-hardware', name: 'Flight hardware handling' },
-      { id: 'design-validation', name: 'Analog IC bench bring-up', featured: true },
       { id: 'smu', name: 'Source Measure Units (SMUs)' },
       { id: 'test-scripts', name: 'Running test scripts' },
+      { id: 'test-data-processing', name: 'Test data post-processing' },
+      { id: 'excel', name: 'Excel' },
     ],
   },
   {
@@ -101,8 +99,21 @@ export const categories: SkillCategory[] = [
       { id: 'data-analysis', name: 'Data analysis' },
       { id: 'matlab', name: 'MATLAB', featured: true },
       { id: 'java', name: 'Java', note: 'FIRST Robotics' },
+    ],
+  },
+  {
+    id: 'digital',
+    name: 'Digital Design & FPGA',
+    blurb: 'RTL, verification, and the FPGA flow.',
+    tone: 'cobalt',
+    skills: [
       { id: 'verilog', name: 'SystemVerilog / Verilog', featured: true },
       { id: 'cocotb', name: 'cocotb' },
+      { id: 'verilator', name: 'Verilator' },
+      { id: 'vivado', name: 'Vivado' },
+      { id: 'fpga-artix7', name: 'Basys 3 / Artix-7 FPGA' },
+      { id: 'git-ci', name: 'Git and GitHub Actions CI' },
+      { id: 'linux', name: 'Linux (WSL2)' },
     ],
   },
   {
@@ -118,7 +129,6 @@ export const categories: SkillCategory[] = [
       { id: 'i2c', name: 'I2C' },
       { id: 'spi', name: 'SPI' },
       { id: 'uart', name: 'UART' },
-      { id: 'can', name: 'CAN' },
       { id: 'gpio', name: 'GPIO' },
       { id: 'adc', name: 'ADC' },
       { id: 'data-acquisition', name: 'Data acquisition' },

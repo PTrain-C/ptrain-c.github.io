@@ -17,12 +17,14 @@ mine:
   - Schematic capture and circuit design
   - PCB layout in KiCAD (46.7 x 52.8 mm, 2 layers, 44 nets)
   - Design rule check (DRC)
-  - Fabrication output
+  - Front-edge status LEDs for test and debug during planned bring-up
+  - Right-angle connectors sized to fit the electrical breakout box
+  - Unity-gain follower fan-out so the pedal signals feed both the BSPD and the ECU
 others:
   - part: The rest of the car's electrical system, including the ECU the BSPD sits next to
     by: USC Racing electrical team
-outcome: Completed through layout and fabrication output. Never installed on the car, brought up, or tested, because of team changes.
-skills: [kicad, schematic-capture, pcb-layout, drc, fab-output, op-amps, comparator-logic]
+outcome: Completed through schematic and layout with DRC. Never ordered, assembled, installed, or tested, because of team changes.
+skills: [kicad, schematic-capture, pcb-layout, drc, op-amps, comparator-logic]
 links:
   - label: Full schematic (PDF)
     url: /files/bspd-schematic.pdf
@@ -95,10 +97,10 @@ Everything comes in and goes out through one 12-pin connector: 12 V and ground, 
   items={[
     { label: '3D, top', src: 'img/bspd/render-front.webp', caption: 'Top side. Pedal inputs come in on the left, the logic runs top to bottom, and the status LEDs line the bottom edge.' },
     { label: '3D, bottom', src: 'img/bspd/render-back.webp', caption: 'Bottom side, where the shutdown relay (U4) and its flyback diode (D16) sit.' },
-    { label: 'Copper layout', src: 'img/bspd/layout.webp', caption: 'The layout view in KiCAD with both copper layers showing, before the fabrication files were generated.' },
+    { label: 'Copper layout', src: 'img/bspd/layout.webp', caption: 'The layout view in KiCAD with both copper layers showing.' },
   ]}
 />
 
 ## Where it ended up
 
-I took it through DRC and generated the fabrication files. Because of team changes the board was never installed or brought up, and no testing or inspection was done, so there are no bench results here.
+I took it through DRC. Because of team changes the board was never ordered, assembled, or brought up, so there are no bench results here.

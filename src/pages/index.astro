@@ -16,7 +16,7 @@ const current = experience.find((e) => e.data.current);
 
 // Categories shown in the hero's key skills strip (all featured skills are
 // still on the Skills page).
-const heroCategories = ['pcb', 'analog', 'test', 'systems', 'programming', 'quantum'];
+const heroCategories = ['pcb', 'analog', 'test', 'systems', 'programming', 'digital', 'quantum'];
 const keySkills = categories
   .filter((c) => heroCategories.includes(c.id))
   .map((c) => ({ category: c, skills: c.skills.filter((s) => s.featured) }))
@@ -35,7 +35,7 @@ const focus = [
 const facts = [
   { big: '13', label: 'interns I led defining SWAP-C constraints at Lockheed Martin' },
   { big: '140+', label: 'participants at Q³ Qompute @ USC in 2025, which I helped organize' },
-  { big: 'Class B', label: 'NASA risk standard the spaceflight hardware I test at Draper is built to' },
+  { big: '30', label: 'flight modules in the acceptance campaign I help run at Draper' },
   { big: String(projects.length), label: 'projects, each with my part spelled out' },
 ];
 ---
@@ -55,7 +55,7 @@ const facts = [
         }
         <h1 class="display name rise" style="--d:1">{site.name}</h1>
         <p class="focus rise" style="--d:2">
-          Electrical engineering at USC, working on
+          Electrical engineering at USC, working on{' '}
           <span class="rotator" data-rotator={JSON.stringify(focus)}>
             <span class="word">{focus[0]}</span>
           </span>
@@ -308,11 +308,11 @@ const facts = [
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(7, 1fr);
   }
   .key-cols > li {
     position: relative;
-    padding: 0 1.1rem;
+    padding: 0 0.9rem;
     border-left: 1px solid color-mix(in oklab, var(--gold) 35%, transparent);
   }
   .key-cols > li:first-child {

@@ -69,6 +69,9 @@ const experience = defineCollection({
     heroImage: z.string().optional(),
     hero: z.enum(['split', 'poster', 'tall', 'scene']).default('split'),
     rail: z.enum(['right', 'left', 'top']).default('right'),
+    // Org or club logo (PNG in /public, e.g. 'img/logos/draper.png'). Shown in
+    // the experience badge; falls back to the org's initials when missing.
+    logo: z.string().optional(),
     // Project pages that came out of this role.
     projects: z.array(z.string()).default([]),
     links,

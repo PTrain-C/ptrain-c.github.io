@@ -9,10 +9,11 @@ order: 4
 summary: Wrote all of the control code for a closed-loop pH and EC nutrient dosing system for a nonprofit's hydroponic farms, in C++ on an Arduino UNO R4 WiFi.
 highlights:
   - Wrote all of the control code, in C++ across 7 source files, for a closed-loop pH and EC dosing system driving 4 peristaltic pumps from real-time sensor feedback
-  - Traced corrupted sensor reads to vendor sample code parsing I2C idle bytes (0xFF) as data, and fixed every driver
+  - Tracked down intermittent bad sensor reads, separating breadboard wiring faults from vendor sample-code issues, and worked around the code problems
   - Isolated undocumented pump protocol limits that were causing dose commands to be rejected
-  - Verified the custom PCB netlist against the validated breadboard build
-skills: [arduino, c-cpp, closed-loop-control, i2c, logic-analyzer, design-verification]
+  - Checked the custom PCB netlist against the breadboard build, catching mismatches before anything was ordered
+  - Worked across the hardware and PCB teammates so the controller, wiring, and board netlist stayed in sync
+skills: [arduino, c-cpp, closed-loop-control, i2c, logic-analyzer, netlist-verification]
 theme: hydro
 rail: left
 projects: [hydroponics]
@@ -39,6 +40,6 @@ The Food For Thought Foundation is a Los Angeles nonprofit that puts modular hyd
 
 It's deadband control with a cap on how much it can dose per cycle, so it can't overdose. EC gets dosed before pH, so adding nutrients doesn't undo the pH correction. The two loops are independent, so if one probe fails the other keeps regulating.
 
-The hardest part was bugs that looked like my own logic and weren't. I spent too long assuming they were. Corrupted sensor reads turned out to be the vendor's sample code parsing the 0xFF bytes an I2C device returns when it has nothing left to say, as if they were data. I also found undocumented limits in the pump protocol that were getting dose commands rejected. What I use from it now: look at what's really on the bus before rewriting code.
+The hardest part was bugs that looked like my own logic and weren't. I spent too long assuming they were. A lot of the bad reads were loose breadboard connections, and the rest came from the vendor's sample code, which I worked around. I also found undocumented limits in the pump protocol that were getting dose commands rejected. What I use from it now: look at what's really on the bus before rewriting code.
 
 The control loop, the code, and the bus story are on the project page.

@@ -13,14 +13,14 @@ art: compare
 team: team
 mine:
   - All of the control code, in C++ across 7 source files
-  - Fixing every sensor driver after finding the 0xFF idle-byte parsing bug
+  - Working around vendor sample-code issues in the sensor reads
   - Isolating undocumented pump protocol limits that were getting dose commands rejected
   - Verifying the custom PCB netlist against the breadboard build
 others:
   - part: Custom PCB design and layout
     by: Another team member
 outcome: Control code running on the breadboard system. The PCB was only compared against the breadboard netlist, never fabricated or brought up.
-skills: [arduino, c-cpp, closed-loop-control, i2c, logic-analyzer, design-verification]
+skills: [arduino, c-cpp, closed-loop-control, i2c, logic-analyzer, netlist-verification]
 sources:
   - label: FFT 2026 control code (farmsforthoughtcode_fft_2026.ino and the pH, EC, pump, and dosing modules)
   - label: FFT 2026 README (file map, I2C addresses, dosing behavior, Atlas EZO notes)
@@ -79,16 +79,9 @@ The pumps also had undocumented protocol limits that were getting my dose comman
 
 ## Look at the bus first
 
-I spent too long assuming the bugs were in my own logic. Readings were occasionally garbage, with no pattern. The vendor sample code read bytes until the EZO's end-of-data byte, `0x00`, but once a device has nothing left to send, the I2C bus itself hands back `0xFF`, and it was copying those into the buffer as data. I fixed it with one condition in every sensor driver:
-
-<Excerpt
-  file="fftf/ec_fft.cpp"
-  lang="cpp"
-  from={66}
-  to={79}
-/>
+A lot of the bad reads were loose breadboard connections, which cost the team about 30 minutes most meetings. The rest came from the vendor's sample code, which I worked around. What I took from it: check what's actually on the bus before rewriting logic.
 
 ## The PCB
 
-The circuit was first built and validated on a breadboard. Someone else designed a custom PCB for it, and my part was to check the PCB's netlist against the breadboard build and confirm the two matched. The board was not fabricated or brought up beyond that comparison.
+The circuit was first built and validated on a breadboard. Someone else designed a custom PCB for it, and my part was to check the PCB's netlist against the breadboard build. The check caught mismatches before anything was ordered. The board was meant to fix the breadboard reliability problems, but it was never fabricated.
 

@@ -19,9 +19,11 @@ interface Props {
 const { back, seed = 3, theme = 'board', layout = 'split', image, imageAlt = '' } = Astro.props;
 const hasAside = Astro.slots.has('aside') || !!image;
 const mode = layout === 'scene' || !hasAside ? 'scene' : layout;
+// Top-level pages (no back link) get a short band so the content starts high.
+const compact = !back && mode === 'scene';
 ---
 
-<section class:list={['page-hero', `mode-${mode}`]} data-theme={theme}>
+<section class:list={['page-hero', `mode-${mode}`, { compact }]} data-theme={theme}>
   {mode === 'poster' && image && <img class="poster" src={href(`/${image}`)} alt={imageAlt} />}
   {mode !== 'poster' && <Scene theme={theme} seed={seed} />}
   <div class="wrap inner">
@@ -65,6 +67,11 @@ const mode = layout === 'scene' || !hasAside ? 'scene' : layout;
   }
   .mode-scene .text {
     max-width: 38rem;
+  }
+  .compact .inner {
+    min-height: 0;
+    padding-top: 6.75rem;
+    padding-bottom: 2.25rem;
   }
   .mode-scene::after,
   .mode-split::after {

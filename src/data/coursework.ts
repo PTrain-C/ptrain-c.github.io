@@ -18,7 +18,8 @@ export const coursework: { group: string; blurb: string; courses: Course[] }[] =
     courses: [
       { code: 'EE 202L', name: 'Linear Circuits', project: 'notch-filter' },
       { code: 'EE 338', name: 'Semiconductor Devices' },
-      { code: 'EE 477', name: 'MOS VLSI Circuit Design', note: 'Planned, Spring 2027' },
+      { code: 'EE 348L', name: 'Electronic Circuits I', note: 'Planned, Fall 2027' },
+      { code: 'EE 477', name: 'MOS VLSI Circuit Design', note: 'Planned, 2027' },
     ],
   },
   {
@@ -48,7 +49,8 @@ export const coursework: { group: string; blurb: string; courses: Course[] }[] =
         name: 'IBM Quantum Qiskit Global Summer School',
         note: '2026. Quantum Fundamentals certificate, including a dynamic GHZ-state circuit builder and a circuit parameter analysis utility',
       },
-      { name: 'Verilog practice (HDLBits)', note: 'Jun 2026 to now. Combinational logic, sequential circuits, and FSMs' },
+      { name: 'Verilog practice (HDLBits)', note: 'Jun 2026 to Sep 2026. Combinational logic, sequential circuits, and FSMs' },
+      { name: 'QRNG', project: 'qrng', note: 'Sep 2026 to now. Where the HDLBits practice is now applied: SystemVerilog RTL and cocotb tests on an FPGA' },
     ],
   },
 ];

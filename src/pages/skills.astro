@@ -6,6 +6,8 @@ import { categories } from '../data/skills';
 import { getSkillUsage } from '../lib/content';
 
 const usage = await getSkillUsage();
+// Only skills backed by a project, role, or credential are listed.
+const shown = categories.filter((c) => c.skills.some((s) => (usage.get(s.id) ?? []).length > 0));
 ---
 
 <Base title="Skills" description="Every skill, grouped, with where each one was used.">
@@ -14,7 +16,7 @@ const usage = await getSkillUsage();
     <p class="lede">Grouped by area. Each skill links to the roles and projects where I used it.</p>
     <nav class="jump" aria-label="Skill areas">
       {
-        categories.map((c) => (
+        shown.map((c) => (
           <a href={`#${c.id}`} data-tone={c.tone}>
             {c.name}
           </a>
@@ -25,14 +27,14 @@ const usage = await getSkillUsage();
 
   <div class="wrap cats">
     {
-      categories.map((c) => (
+      shown.map((c) => (
         <section class="cat" id={c.id} data-tone={c.tone}>
           <div class="cat-head">
             <h2 class="display">{c.name}</h2>
             <p class="quiet small">{c.blurb}</p>
           </div>
           <ul class="rows">
-            {c.skills.map((s) => {
+            {c.skills.filter((s) => (usage.get(s.id) ?? []).length > 0).map((s) => {
               const used = usage.get(s.id) ?? [];
               return (
                 <li id={s.id}>
