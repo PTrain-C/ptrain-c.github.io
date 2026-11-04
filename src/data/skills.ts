@@ -102,6 +102,7 @@ export const categories: SkillCategory[] = [
       { id: 'matlab', name: 'MATLAB', featured: true },
       { id: 'java', name: 'Java', note: 'FIRST Robotics' },
       { id: 'verilog', name: 'Verilog', note: 'learning, HDLBits' },
+      { id: 'cocotb', name: 'cocotb', note: 'learning' },
     ],
   },
   {

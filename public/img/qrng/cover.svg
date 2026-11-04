@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 -70 860 672" role="img" aria-label="QRNG pipeline block diagram">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#b9abf5"/>
+    </marker>
+    <style>
+      text { font-family: ui-monospace, Menlo, Consolas, monospace; text-anchor: middle; }
+      .t { font-size: 15px; font-weight: 600; }
+      .s { font-size: 11px; }
+      .built rect { fill: #b9abf5; stroke: #b9abf5; }
+      .built text { fill: #16142a; }
+      .prog rect { fill: #16142a; stroke: #b9abf5; stroke-dasharray: 6 4; stroke-width: 1.6; }
+      .prog text { fill: #dcd4fb; }
+      .plan rect { fill: #1b1833; stroke: #b9abf5; stroke-opacity: 0.35; }
+      .plan text { fill: #dcd4fb; fill-opacity: 0.6; }
+      .w { fill: none; stroke: #b9abf5; stroke-opacity: 0.7; stroke-width: 1.6; }
+      .lbl { font-size: 10px; fill: #b9abf5; fill-opacity: 0.8; }
+      .leg { font-size: 12px; fill: #dcd4fb; text-anchor: start; }
+    </style>
+  </defs>
+  <rect x="-30" y="-70" width="860" height="672" fill="#221f3d"/>
+
+  <!-- wires -->
+  <path class="w" d="M200 68 H218" marker-end="url(#a)"/>
+  <path class="w" d="M390 68 H408" marker-end="url(#a)"/>
+  <path class="w" d="M580 68 H598" marker-end="url(#a)"/>
+  <path class="w" d="M200 168 H218" marker-end="url(#a)"/>
+  <path class="w" d="M390 168 H640 V98" marker-end="url(#a)"/>
+  <path class="w" d="M730 96 V248" marker-end="url(#a)"/>
+  <path class="w" d="M600 278 H582" marker-end="url(#a)"/>
+  <path class="w" d="M410 278 H392" marker-end="url(#a)"/>
+  <path class="w" d="M305 306 V330 H115 V358" marker-end="url(#a)"/>
+  <path class="w" d="M305 330 H495 V358" marker-end="url(#a)"/>
+  <path class="w" d="M685 360 V308" stroke-dasharray="3 4" marker-end="url(#a)"/>
+  <text class="lbl" x="210" y="34">USB</text>
+  <text class="lbl" x="560" y="160">clk_io to clk_core</text>
+  <text class="lbl" x="747" y="180" transform="rotate(90 747 180)">valid / ready</text>
+
+  <!-- row 1 -->
+  <g class="prog"><rect x="30" y="40" width="170" height="56" rx="8"/><text class="t" x="115" y="64">IBM qubits</text><text class="s" x="115" y="82">H gate, measure</text></g>
+  <g class="built"><rect x="220" y="40" width="170" height="56" rx="8"/><text class="t" x="305" y="64">UART RX</text><text class="s" x="305" y="82">built, 7/7 tests pass</text></g>
+  <g class="plan"><rect x="410" y="40" width="170" height="56" rx="8"/><text class="t" x="495" y="64">Async FIFO</text><text class="s" x="495" y="82">Gray-coded pointers</text></g>
+  <g class="plan"><rect x="600" y="40" width="170" height="56" rx="8"/><text class="t" x="685" y="64">Source arbiter</text><text class="s" x="685" y="82">round robin</text></g>
+
+  <!-- row 2 -->
+  <g class="plan"><rect x="30" y="140" width="170" height="56" rx="8"/><text class="t" x="115" y="164">Ring oscillator</text><text class="s" x="115" y="182">on-chip TRNG</text></g>
+  <g class="plan"><rect x="220" y="140" width="170" height="56" rx="8"/><text class="t" x="305" y="164">2-flop sync</text><text class="s" x="305" y="182">metastability guard</text></g>
+
+  <!-- row 3, right to left -->
+  <g class="plan"><rect x="600" y="250" width="170" height="56" rx="8"/><text class="t" x="685" y="274">Health tests</text><text class="s" x="685" y="292">RCT + APT, SP 800-90B</text></g>
+  <g class="plan"><rect x="410" y="250" width="170" height="56" rx="8"/><text class="t" x="495" y="274">Von Neumann</text><text class="s" x="495" y="292">debiaser</text></g>
+  <g class="plan"><rect x="220" y="250" width="170" height="56" rx="8"/><text class="t" x="305" y="274">Toeplitz</text><text class="s" x="305" y="292">extractor, GF(2)</text></g>
+
+  <!-- row 4 -->
+  <g class="prog"><rect x="30" y="360" width="170" height="56" rx="8"/><text class="t" x="115" y="384">UART TX</text><text class="s" x="115" y="402">spec written</text></g>
+  <g class="plan"><rect x="410" y="360" width="170" height="56" rx="8"/><text class="t" x="495" y="384">8-ball FSM</text><text class="s" x="495" y="402">7-segment display</text></g>
+  <g class="plan"><rect x="600" y="360" width="170" height="56" rx="8"/><text class="t" x="685" y="384">CSR block</text><text class="s" x="685" y="402">AXI4-Lite</text></g>
+
+  <!-- legend -->
+  <g transform="translate(30 462)">
+    <g class="built"><rect width="22" height="14" rx="3"/></g><text class="leg" x="30" y="12">built and tested</text>
+    <g class="prog" transform="translate(190 0)"><rect width="22" height="14" rx="3"/></g><text class="leg" x="220" y="12">in progress</text>
+    <g class="plan" transform="translate(350 0)"><rect width="22" height="14" rx="3"/></g><text class="leg" x="380" y="12">planned</text>
+  </g>
+</svg>
