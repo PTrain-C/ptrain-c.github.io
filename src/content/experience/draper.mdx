@@ -7,10 +7,10 @@ start: Sep 2026
 end: Present
 current: true
 order: 1
-summary: Design validation testing of a linear regulator for an ASIC team, and acceptance testing on flight hardware for a NASA Class B space program.
+summary: Bench bring-up of an analog LDO alongside the IC design team, and acceptance testing on flight hardware for a spaceflight program built to NASA Class B risk standards.
 highlights:
-  - Performing design validation testing (DVT) of a custom ASIC linear regulator (LDO), characterizing line and load transient response with Source Measure Units (SMUs)
-  - Executing acceptance testing on 30 flight modules for a NASA Class B space program, verifying performance and power after each random vibration and thermal cycling exposure
+  - Bringing up an analog LDO on the bench alongside the IC design team, characterizing line and load transient response with Source Measure Units (SMUs)
+  - Executing acceptance testing on 30 flight modules for a spaceflight program built to NASA Class B risk standards, verifying performance and power after each random vibration and thermal cycling exposure
   - Wrote a MATLAB script that plotted vibration test data and showed an aborted test was a bad sensor reading, not a bad unit, then presented it to the review board
   - Handle delicate flight hardware under flight hardware procedures
 skills: [design-validation, smu, acceptance-testing, vibration-testing, thermal-cycling, charge-discharge, flight-hardware, matlab, nasa-class-b]
@@ -20,17 +20,17 @@ rail: top
 import Chain from '../../components/content/Chain.astro';
 import ThermalProfile from '../../components/content/ThermalProfile.astro';
 
-{/* Keep this generic: no program specifics beyond "a NASA Class B space program" and "flight hardware". Draper specifics are FOUO: only what is written on this page may be published. No hard numbers, design details, or parts. The scope of the work is fine. */}
+{/* Keep this generic: no program specifics beyond "a spaceflight program built to NASA Class B risk standards" and "flight hardware". Draper specifics are FOUO: only what is written on this page may be published. No hard numbers, design details, or parts. The scope of the work is fine. */}
 
 I took this semester off from classes on purpose. A normal school schedule wasn't going to give me hands-on hardware time, and Draper would. I'm on the Microelectronics Integration & Test team in the Space Systems business area, and I work on two things.
 
-## ASIC design validation
+## Analog LDO bring-up
 
-This one came in October and it's the work I most want to be doing. Before a linear regulator (an LDO) gets integrated into the larger board, it gets tested on its own. I run design validation testing on it, looking at how the output responds to line transients and load transients, using Source Measure Units to drive and measure.
+This one came in October and it's the work I most want to be doing. Before an analog linear regulator (an LDO) gets integrated into the larger board, it gets tested on its own. I bring it up on the bench alongside the IC design team, looking at how the output responds to line transients and load transients, using Source Measure Units to drive and measure.
 
 ## Flight hardware acceptance testing
 
-The other half is acceptance testing on about 5 batches of 6 identical modules, around 30 units, for a NASA Class B space program. The hardware design and the test plan were done before I got here. I help run it, and it's the same routine every batch.
+The other half is acceptance testing on about 5 batches of 6 identical modules, around 30 units, for a spaceflight program built to NASA Class B risk standards. The hardware design and the test plan were done before I got here. I help run it, and it's the same routine every batch.
 
 <Chain
   label="What goes into accepting a batch"
@@ -48,4 +48,4 @@ Because the routine is the same each time, a result that looks wrong stands out.
 
 ## Class B, briefly
 
-NASA sorts missions into risk classes A through D under NPR 8705.4. Class B is one step below A: high priority work with a low tolerance for risk, which shows up as tighter requirements on parts, workmanship, handling, and testing than a Class C or D mission would carry.
+NASA sorts missions into risk classes A through D under NPR 8705.4, and this program is built to the Class B standard. Class B is one step below A: high priority work with a low tolerance for risk, which shows up as tighter requirements on parts, workmanship, handling, and testing than a Class C or D mission would carry.
