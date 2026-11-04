@@ -51,7 +51,6 @@ export const categories: SkillCategory[] = [
       { id: 'netlist-verification', name: 'Netlist verification' },
       { id: 'oscilloscope', name: 'Oscilloscope measurement' },
       { id: 'breadboarding', name: 'Breadboard prototyping' },
-      { id: 'logic-analyzer', name: 'Logic analyzer debugging' },
       { id: 'test-circuits', name: 'Test circuit design' },
     ],
   },

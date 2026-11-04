@@ -18,7 +18,7 @@ export const coursework: { group: string; blurb: string; courses: Course[] }[] =
     courses: [
       { code: 'EE 202L', name: 'Linear Circuits', project: 'notch-filter' },
       { code: 'EE 338', name: 'Semiconductor Devices' },
-      { code: 'EE 348L', name: 'Electronic Circuits I', note: 'Planned, Fall 2027' },
+      { code: 'EE 348L', name: 'Electronic Circuits', note: 'Planned, Fall 2027' },
       { code: 'EE 477', name: 'MOS VLSI Circuit Design', note: 'Planned, 2027' },
     ],
   },
