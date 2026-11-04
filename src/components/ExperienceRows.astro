@@ -31,9 +31,15 @@ const topSkills = (ids: string[]) =>
     entries.map((e) => (
       <li>
         <a href={href(`/experience/${e.id}`)} class:list={{ current: e.data.current }}>
-          <span class="mono-badge display" aria-hidden="true" data-theme={e.data.theme}>
-            {monogram(e.data.org)}
-          </span>
+          {e.data.logo ? (
+            <span class:list={['mono-badge logo', { fill: e.data.logoFill }]} aria-hidden="true">
+              <img src={href(`/${e.data.logo}`)} alt="" loading="lazy" />
+            </span>
+          ) : (
+            <span class="mono-badge display" aria-hidden="true" data-theme={e.data.theme}>
+              {monogram(e.data.org)}
+            </span>
+          )}
           <span class="who">
             <span class="org">{e.data.org}</span>
             <span class="role">{e.data.role}</span>
@@ -95,6 +101,21 @@ const topSkills = (ids: string[]) =>
     color: var(--accent);
     font-size: 1.35rem;
   }
+  .mono-badge.logo {
+    background: #fff;
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .mono-badge.logo img {
+    width: 76%;
+    height: 76%;
+    object-fit: contain;
+  }
+  .mono-badge.logo.fill img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
   .current .mono-badge {
     box-shadow:
       0 0 0 3px var(--linen),
@@ -128,6 +149,11 @@ const topSkills = (ids: string[]) =>
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem;
+    min-width: 0;
+  }
+  .skills .pill {
+    max-width: 100%;
+    white-space: normal;
   }
   .arrow {
     width: 1.3rem;

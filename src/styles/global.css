@@ -37,6 +37,7 @@
   --tone-rose: #8a3b4b;
   --tone-violet: #53478a;
   --tone-teal: #2c6566;
+  --tone-cobalt: #34508f;
 
   --display: 'Instrument Serif', 'Iowan Old Style', Georgia, serif;
   --sans: 'Geist Variable', 'Segoe UI', system-ui, sans-serif;
@@ -262,6 +263,7 @@ a.pill:hover::before {
 [data-tone='rose'] { --tone: var(--tone-rose); }
 [data-tone='violet'] { --tone: var(--tone-violet); }
 [data-tone='teal'] { --tone: var(--tone-teal); }
+[data-tone='cobalt'] { --tone: var(--tone-cobalt); }
 
 /* ---- Unfinished content marker ---------------------------------------- */
 

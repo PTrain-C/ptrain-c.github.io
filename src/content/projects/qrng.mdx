@@ -1,7 +1,7 @@
 ---
 title: QRNG
 fullName: Quantum random number generator on an FPGA
-summary: A hardware random number pipeline. Bits come from qubits measured on IBM Quantum hardware and from a ring oscillator on the chip, then a Basys 3 FPGA checks them, removes bias, and runs them through a Toeplitz extractor. A quantum Magic 8-Ball is the demo. In progress.
+summary: A hardware random number pipeline in progress. Bits will come from qubits measured on IBM Quantum hardware and a ring oscillator on the FPGA; the Basys 3 then health-tests them, removes bias, and runs a Toeplitz extractor. A quantum Magic 8-Ball is the demo.
 period: Sep 2026 to now
 order: 1.5
 status: published
@@ -19,7 +19,7 @@ others:
   - part: Toolchain installs, the CI workflow, and the Vivado build scripts
     by: Claude Code (AI assistant), at my direction
 outcome: In progress. The UART receiver is written and passes all 7 of its tests in CI, and the Qiskit side is underway.
-skills: [verilog, cocotb, uart, python, qiskit, quantum-fundamentals]
+skills: [verilog, cocotb, verilator, vivado, fpga-artix7, git-ci, linux, uart, python, qiskit, quantum-fundamentals]
 sources:
   - label: QRNG repo README, current status section (private repo)
   - label: qrng-rtl-roadmap.md, the project spec
@@ -39,7 +39,7 @@ import Figure from '../../components/Figure.astro';
 
 ## What it is
 
-This is a random number generator I'm building from the qubit up. The random bits come from two places: qubits measured on IBM Quantum hardware, and a ring oscillator running on the FPGA itself. Both streams go into a Digilent Basys 3 (Artix-7), where hardware I'm writing checks that the source hasn't failed, strips out bias, and compresses the bits into output that is very close to uniform. That's the same basic structure commercial QRNGs use. The output goes two places: back to my laptop over UART so I can run statistical tests on it, and into a Magic 8-Ball on the board's 7-segment display, which is the demo.
+This is a random number generator I'm building from the qubit up. The random bits will come from two places: qubits measured on IBM Quantum hardware, and a ring oscillator running on the FPGA itself. Both streams will go into a Digilent Basys 3 (Artix-7), where hardware I'm writing checks that the source hasn't failed, strips out bias, and compresses the bits into output that is very close to uniform. That's the same basic structure commercial QRNGs use. The output will go two places: back to my laptop over UART so I can run statistical tests on it, and into a Magic 8-Ball on the board's 7-segment display, which is the demo.
 
 The bigger reason for the project is digital design. Most of my work so far is analog and PCB design, and the silicon internships I'm going after (ASIC design and verification) ask for RTL, testbenches, assertions, clock domain crossing, synthesis, and timing. Every block in this pipeline was picked to cover one of those. The quantum part is what makes it more than another generic CPU core.
 
@@ -97,9 +97,9 @@ where $x$ is $n$ raw bits, $y$ is $m$ output bits with $m < n$, and every diagon
 
 A control and status register block on an AXI4-Lite subset ties it together. It holds the source select, the health test limits, alarm and sample counters, and the extractor seed.
 
-**Verification.** Every block gets self-checking cocotb tests on Verilator, with Python reference models and scoreboards. On top of that: random backpressure on every handshake, SystemVerilog assertions, formal proofs in SymbiYosys on the FIFO and arbiter, functional and code coverage, and one full UVM environment. Lint runs with zero warnings allowed.
+**Verification.** The plan for every block: self-checking cocotb tests on Verilator, with Python reference models and scoreboards. On top of that: random backpressure on every handshake, SystemVerilog assertions, formal proofs in SymbiYosys on the FIFO and arbiter, functional and code coverage, and one full UVM environment. Lint already runs with zero warnings allowed.
 
-**Implementation.** On the FPGA side that means XDC constraints (with the two clocks declared asynchronous), timing closure in Vivado, reports on Fmax, utilization, and worst slack, and debugging with Vivado's ILA over JTAG. Then the health tests, debiaser, and extractor go through OpenLane 2 on SKY130 for synthesis, static timing, and place and route reports. That's an ASIC flow, not a tapeout, and the ring oscillator stays out since it isn't portable.
+**Implementation.** Planned: on the FPGA side, XDC constraints (with the two clocks declared asynchronous), timing closure in Vivado, reports on Fmax, utilization, and worst slack, and debugging with Vivado's ILA over JTAG. Then the health tests, debiaser, and extractor will go through OpenLane 2 on SKY130 for synthesis, static timing, and place and route reports. That's an ASIC flow, not a tapeout, and the ring oscillator stays out since it isn't portable.
 
 ## What's done
 

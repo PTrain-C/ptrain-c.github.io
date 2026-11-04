@@ -43,7 +43,7 @@ Add a new `.mdx` file in `src/content/projects/`. Frontmatter:
 - `experience`: id of the role it came from; `links`; `sources` (documents the claims come from).
 - `status: draft` marks it unfinished.
 
-Experience entries use `summary`, `highlights`, `skills`, `theme`, `rail`, `projects` (related project ids), and `sources`.
+Experience entries use `logo` (a PNG in `public/img/logos/`, shown in the round badge; without one the badge shows the org's initials), `summary`, `highlights`, `skills`, `theme`, `rail`, `projects` (related project ids), and `sources`.
 
 Components for MDX bodies live in `src/components/content/`: `Chain` (clickable signal chain or state machine), `Tabs` (image viewer), `NotchExplorer`, `MeasuredBode`, `Excerpt` (shows real lines from a file in `docs/source`), `Stats`, `Pair`, `TeamDots`, `ThermalProfile`. Also `<Missing>` for gaps, `<Figure>` for photos, and `$...$` / `$$...$$` for math.
 

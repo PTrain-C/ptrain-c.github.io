@@ -8,11 +8,13 @@ end: May 2026
 order: 3
 summary: Designed the safety-critical Brake System Plausibility Device (BSPD) board for USC Racing's SCR26 Formula SAE car, and documented its wire harnesses.
 highlights:
-  - Designed an all-analog BSPD safety interlock board to the FSAE electrical rules (schematic capture, circuit design, 2-layer PCB layout (46.7 x 52.8 mm, 44 nets) in KiCAD, DRC, and fabrication output)
+  - Designed an all-analog BSPD safety interlock board to the FSAE electrical rules (schematic capture, circuit design, 2-layer PCB layout (46.7 x 52.8 mm, 44 nets) in KiCAD, and DRC)
   - Documented 200+ wire and cable harnesses across 9 subsystems, with MIL-STD-681F based color coding and a connector naming convention of my own, cutting assembly and fault-tracing time by about 30%
   - Assisted on the full vehicle harness design in RapidHarness
-skills: [kicad, pcb-layout, drc, fab-output, schematic-capture, op-amps, comparator-logic, harness-docs, mil-std-681f, technical-docs]
+skills: [kicad, pcb-layout, drc, schematic-capture, op-amps, comparator-logic, harness-docs, mil-std-681f, technical-docs]
 theme: track
+logo: img/logos/usc-racing.png
+logoFill: true
 hero: poster
 heroImage: img/racing/track-hero.webp
 rail: right
@@ -23,11 +25,11 @@ sources:
 ---
 import Figure from '../../components/Figure.astro';
 
-USC Racing builds a new internal combustion Formula SAE car every year, and SCR26 is the one I worked on. The rules require a Brake System Plausibility Device: a standalone circuit that cuts power if the throttle and hard braking show up together, or if a pedal sensor fails. FSAE rules don't allow software anywhere in that detection path, so it has to be analog.
+USC Racing builds a new internal combustion Formula SAE car every year, and SCR26 is the one I worked on. The rules require a Brake System Plausibility Device: a standalone circuit that cuts power if the throttle and hard braking show up together, or if a pedal sensor fails. FSAE rules require the BSPD to be non-programmable, and we went fully analog.
 
 The BSPD was my design, from schematic through layout. Most of the effort went into where the comparator thresholds sit, because the failure modes cut both ways. Too loose and the car doesn't shut down when it should. Too tight and noise causes a false trip that kills the car mid-run. The full walkthrough, with the schematic broken into sections, is on the project page.
 
-The board is 46.7 by 52.8 mm, two layers, 44 nets. I took it through DRC and produced the fabrication files. Because of team changes it was never installed or brought up on the car, and it was never tested.
+The board is 46.7 by 52.8 mm, two layers, 44 nets. I took it through DRC. Because of team changes the board was never ordered, assembled, or brought up.
 
 ## Harness records
 

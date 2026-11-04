@@ -25,7 +25,7 @@ others:
     by: John Peng
 outcome: Built into the guitar and tuned on the bench. Designed for Q = 8.5 at 196 Hz, with over 20 dB of attenuation at the notch in LTSpice.
 # KiCAD is left out on purpose: the schematic and layout were John Peng's.
-skills: [nodal-analysis, transfer-functions, filter-design, op-amps, component-selection, soldering, bench-tuning, oscilloscope, breadboarding]
+skills: [nodal-analysis, transfer-functions, filter-design, op-amps, component-selection, soldering, bench-tuning, oscilloscope, breadboarding, ltspice]
 sources:
   - label: 'EE 202L final project report, "Corrupted Chord" (Dec 12, 2025), including the team split of the work'
   - label: EE 202L Lab 6 report, Rauch band-pass filter (measured sweep and error table)
@@ -50,7 +50,7 @@ John Peng and I built a cigar-box electric guitar and hid an active notch filter
 
 ## The math
 
-We started from the passive twin-T and wrote KCL at the three nodes: $V_1$ between the two $R$'s and the $2C$, $V_2$ between the two $C$'s and the $R/2$, and the output. Solving those together gives
+We started from the passive twin-T and wrote KCL at the three nodes: $V_1$ between the two $R$ resistors and the $2C$, $V_2$ between the two $C$ capacitors and the $R/2$, and the output. Solving those together gives
 
 $$
 \frac{V_{out}}{V_{in}} = \frac{s^2 + \frac{1}{(RC)^2}}{s^2 + s\,\frac{4}{RC} + \frac{1}{(RC)^2}}
