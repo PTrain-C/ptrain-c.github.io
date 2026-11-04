@@ -49,7 +49,7 @@ Components for MDX bodies live in `src/components/content/`: `Chain` (clickable 
 
 ## Deploying
 
-`.github/workflows/deploy.yml` builds and deploys on every push to `main`. The live build sets `HIDE_DRAFTS=true`, so anything marked `status: draft` (currently the Quantum Magic 8-Ball) stays off the site until you flip it to `published`. One-time setup: repo Settings → Pages → Source: **GitHub Actions**. If you move to a custom domain, Vercel, or Netlify, update `site` in `astro.config.mjs`.
+`.github/workflows/deploy.yml` builds and deploys on every push to `main`. The live build sets `HIDE_DRAFTS=true`, so anything marked `status: draft` stays off the site until you flip it to `published`. One-time setup: repo Settings → Pages → Source: **GitHub Actions**. If you move to a custom domain, Vercel, or Netlify, update `site` in `astro.config.mjs`.
 
 ## Updating after a resume change
 
@@ -69,6 +69,7 @@ Set `hubspotPortalId` in `src/config.ts` to turn on the HubSpot tracking code. L
 - [ ] Food For Thought photos
 - [ ] Poke the Poker: confirm the split with Christopher
 - [ ] BSPD: a line on the layout choices
+- [ ] QRNG: update `src/content/projects/qrng.mdx` as blocks land (source of truth is the Current status section of the QRNG repo README)
 
 ## Contact form
 
@@ -77,5 +78,4 @@ Set `hubspotPortalId` in `src/config.ts` to turn on the HubSpot tracking code. L
 ## Deliberately left off
 
 - Security clearance and phone number (resume only)
-- QRNG/FPGA project (not until there's real progress)
 - Any resume page or PDF

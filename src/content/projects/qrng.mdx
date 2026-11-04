@@ -1,0 +1,153 @@
+---
+title: QRNG
+fullName: Quantum random number generator on an FPGA
+summary: A hardware random number pipeline. Bits come from qubits measured on IBM Quantum hardware and from a ring oscillator on the chip, then a Basys 3 FPGA checks them, removes bias, and runs them through a Toeplitz extractor. A quantum Magic 8-Ball is the demo. In progress.
+period: Sep 2026 to now
+order: 6
+status: published
+theme: quantum
+hero: scene
+rail: right
+cover: img/qrng/cover.svg
+team: solo
+mine:
+  - System architecture and the phased build plan
+  - All RTL, written by hand in SystemVerilog (so far the UART receiver)
+  - All testbenches (so far 7 cocotb tests on the UART receiver)
+  - The Qiskit 8-ball circuit (in progress)
+others:
+  - part: Toolchain installs, the CI workflow, and the Vivado build scripts
+    by: Claude Code (AI assistant), at my direction
+outcome: In progress. The UART receiver is written and passes all 7 of its tests in CI. Nothing has run on real quantum hardware or on the board yet.
+skills: [verilog, cocotb, uart, python, qiskit, quantum-fundamentals]
+sources:
+  - label: QRNG repo README, current status section (private repo)
+  - label: qrng-rtl-roadmap.md, the project spec
+  - label: docs/uart_rx_spec.md and docs/uart_tx_spec.md
+---
+import Chain from '../../components/content/Chain.astro';
+import Stats from '../../components/content/Stats.astro';
+import Figure from '../../components/Figure.astro';
+
+{/*
+  RULES (firm), until the QRNG README says otherwise:
+  - Never claim a run on IBM Quantum hardware, a full Vivado build, or anything running on the board.
+  - Aer simulator output is pseudorandom. Never call it quantum entropy.
+  - ASIC flow means OpenLane on SKY130. Never "taped out".
+  - Only blocks marked done in the QRNG README go under "What's done".
+*/}
+
+## What it is
+
+This is a random number generator I'm building from the qubit up. The random bits come from two places: qubits measured on IBM Quantum hardware, and a ring oscillator running on the FPGA itself. Both streams go into a Digilent Basys 3 (Artix-7), where hardware I'm writing checks that the source hasn't failed, strips out bias, and compresses the bits into output that is very close to uniform. That's the same basic structure commercial QRNGs use. The output goes two places: back to my laptop over UART so I can run statistical tests on it, and into a Magic 8-Ball on the board's 7-segment display, which is the demo.
+
+The bigger reason for the project is digital design. Most of my work so far is analog and PCB design, and the silicon internships I'm going after (ASIC design and verification) ask for RTL, testbenches, assertions, clock domain crossing, synthesis, and timing. Every block in this pipeline was picked to cover one of those. The quantum part is what makes it more than another generic CPU core.
+
+## What makes it quantum
+
+A normal computer can't make a truly random number. Software generators are deterministic, so the same seed gives the same sequence every time. A qubit doesn't work that way. Start one in $|0\rangle$ and put it through a Hadamard gate:
+
+$$
+H|0\rangle = \frac{1}{\sqrt{2}}\big(|0\rangle + |1\rangle\big)
+$$
+
+When it's measured, each outcome shows up with probability equal to its amplitude squared (the Born rule):
+
+$$
+P(0) = P(1) = \left|\tfrac{1}{\sqrt{2}}\right|^2 = \tfrac{1}{2}
+$$
+
+Nothing about the qubit before the measurement decides which one you get. There's no hidden value we just can't see; the result doesn't exist until it's measured. Put a Hadamard on each of three qubits and you get eight outcomes that are all equally likely, which is exactly one Magic 8-Ball answer:
+
+$$
+H^{\otimes 3}|000\rangle = \frac{1}{\sqrt{8}}\sum_{x=0}^{7}|x\rangle
+$$
+
+Real hardware isn't ideal, though. Readout errors and relaxation (a qubit in $|1\rangle$ decaying back to $|0\rangle$) push the bits away from 50/50, and that's the reason the FPGA side needs health tests and an extractor at all. A couple of rules I'm sticking to:
+
+- Qiskit's Aer simulator is pseudorandom. It's useful for checking the circuit, but its output gets labeled that way and never counts as quantum entropy.
+- IBM's free plan only gives a limited amount of runtime a month, so the bits get collected in batches, saved to files, and replayed to the board over UART instead of pulled live for every question.
+
+The ring oscillator is the classical comparison. An odd number of inverters in a loop never settles, and thermal noise makes its timing jitter, so sampling it gives physical randomness that isn't quantum. Running both sources through the same processing and comparing them is the experiment at the end.
+
+## The FPGA pipeline
+
+<Figure src="img/qrng/pipeline.svg" ratio="800 / 520" fit="contain" caption="The planned pipeline. The solid block is built and tested, dashed blocks are in progress, and faint blocks are planned." alt="Block diagram: IBM qubits and a ring oscillator feed a UART receiver and synchronizer, then an async FIFO, source arbiter, health tests, von Neumann debiaser and Toeplitz extractor, which drive an 8-ball display and a UART transmitter. A CSR block sets the health test limits." />
+
+Every block passes data to the next one over a valid/ready handshake, the same style as AXI-Stream. Click through the blocks:
+
+<Chain
+  label="Raw bits in, clean bits out"
+  steps={[
+    { tag: 'UART RX', title: 'Get the bits on chip', text: 'The host script sends the saved quantum bits over the Basys 3 USB-UART bridge at 115200 baud, which is 868 clock cycles per bit at 100 MHz. This is the one block that is built so far.' },
+    { tag: 'CDC', title: 'Cross clocks, pick a source', text: 'Intake runs on one clock and processing on another, both made by the MMCM. An async FIFO with Gray-coded pointers moves data between them, single bits go through 2-flop synchronizers, and resets assert right away but release in sync with the clock. A round robin arbiter then picks between the quantum stream and the ring oscillator, or locks to one through a control register.' },
+    { tag: 'RCT, APT', title: 'Health tests', text: 'From NIST SP 800-90B section 4.4. The Repetition Count Test raises an alarm when one value repeats too many times in a row. The Adaptive Proportion Test counts how often the first sample of a window shows up in that window. Either alarm blocks the output.' },
+    { tag: 'Clean up', title: 'Debias and extract', text: 'The von Neumann debiaser takes bits in pairs: 01 gives 0, 10 gives 1, and 00 and 11 are thrown out. Output comes out at an uneven rate, so backpressure on the handshake has to be right. The Toeplitz extractor then compresses n raw bits into m bits that are close to uniform with one matrix multiply over GF(2).' },
+    { tag: 'Out', title: 'Answer and log', text: 'Three output bits pick one of eight answers on the 7-segment display when the button is pressed. The rest stream back to the laptop for statistical testing.' },
+  ]}
+/>
+
+The Toeplitz extractor is the one I'm most interested in. It computes
+
+$$
+y = T\,x \pmod 2, \qquad T_{i,j} = s_{\,i-j+n-1}
+$$
+
+where $x$ is $n$ raw bits, $y$ is $m$ output bits with $m < n$, and every diagonal of the $m \times n$ matrix $T$ is constant. Each output bit is just the XOR of some of the input bits. Since the diagonals are constant, the whole matrix comes from $n + m - 1$ seed bits instead of $mn$, so the hardware only has to hold a shift register, not a full matrix. I'll build a serial version first, then a pipelined one, and compare area against throughput.
+
+A control and status register block on an AXI4-Lite subset ties it together. It holds the source select, the health test limits, alarm and sample counters, and the extractor seed.
+
+**Verification.** Every block gets self-checking cocotb tests on Verilator, with Python reference models and scoreboards. On top of that: random backpressure on every handshake, SystemVerilog assertions, formal proofs in SymbiYosys on the FIFO and arbiter, functional and code coverage, and one full UVM environment. Lint runs with zero warnings allowed.
+
+**Implementation.** On the FPGA side that means XDC constraints (with the two clocks declared asynchronous), timing closure in Vivado, reports on Fmax, utilization, and worst slack, and debugging with Vivado's ILA over JTAG. Then the health tests, debiaser, and extractor go through OpenLane 2 on SKY130 for synthesis, static timing, and place and route reports. That's an ASIC flow, not a tapeout, and the ring oscillator stays out since it isn't portable.
+
+## What's done
+
+<Stats
+  items={[
+    { big: '7 / 7', label: 'cocotb tests passing on the UART receiver' },
+    { big: '868', label: 'clock cycles per bit at 115200 baud' },
+    { big: '434 / 435', label: 'cycles: longest glitch rejected, shortest pulse accepted' },
+  ]}
+/>
+
+I started with the UART receiver because nothing else matters until bits can get onto the chip. I wrote out the spec first (ports, timing, every state and what it does), then the RTL by hand.
+
+<Chain
+  loop
+  label="UART receiver state machine"
+  steps={[
+    { tag: 'IDLE', title: 'Wait for a start bit', text: 'rx comes from off the chip and has no relation to the clock, so it goes through a two-flop synchronizer first. IDLE then waits for a falling edge, not just a low level. After a bad stop bit the line can still be low, and a level check would start a garbage byte right away.' },
+    { tag: 'START', title: 'Check it is real', text: 'Wait half a bit (434 cycles) and check rx is still low. If it went back high, it was a glitch, so go back to IDLE.' },
+    { tag: 'DATA', title: 'Read eight bits', text: 'Sample rx every 868 cycles, which lands in the middle of each bit, least significant bit first. One counter is shared across states because they never overlap.' },
+    { tag: 'STOP', title: 'Check the stop bit', text: 'If the stop bit is 1, pulse valid for one cycle. If it is 0, pulse framing_err and throw the byte away, so a corrupted byte never gets passed down the pipeline.' },
+  ]}
+/>
+
+The tests cover:
+
+- One byte, then six bytes back to back with no idle gap between them. `valid` pulses once per byte, 86.8 µs apart.
+- A bad stop bit gives exactly one `framing_err` pulse and no `valid`, and the next byte is received normally.
+- Glitches of 1, 50, 200, and 434 cycles are all ignored. I measured where the cutoff actually is: 434 cycles is rejected and 435 is accepted, because START samples exactly 434 cycles after the line falls and the two synchronizer delays cancel out.
+- A reset in the middle of a byte drops that frame cleanly.
+- A bad stop bit running straight into the next start bit. Low into low isn't an edge, so nothing is received.
+
+The last two taught me something about UARTs in general. After a reset or lost sync, any 1 to 0 inside later data looks like a start bit, so the receiver can lock onto the wrong edge and swallow the next real byte. That's just how a UART behaves, not a bug, but it changed how I wrote those tests. A possible upgrade later is 16x oversampling with a 3-sample majority vote.
+
+Around that:
+
+- **CI.** GitHub Actions runs lint (Verilator `-Wall` and Verible) and the full cocotb suite on every push. Green since November 3.
+- **Toolchain.** The open-source flow (Verilator, Yosys, SymbiYosys, Verible) runs in WSL2, and Vivado 2026.1 runs natively on Windows for synthesis. The build and programming scripts are written, but there's no top-level module yet, so no full build has been run.
+- **UART transmitter.** The spec is done: a start pulse and `busy` handshake, a shift register, and `tx` driven straight from a flip-flop, since a glitch on `tx` would look like a start bit to the receiver on the other end.
+- **Quantum side.** I'm writing the 8-ball circuit in Qiskit now. My IBM Quantum account is set up and three backends (ibm_fez, ibm_kingston, ibm_marrakesh) are reachable. It runs on Aer first, then on real hardware through `SamplerV2`. Nothing has run on hardware yet.
+
+## What I'm working towards
+
+1. **Working 8-ball on the board** (current). UART transmitter, the 8-ball state machine, a 7-segment driver, and the host script that sends quantum bits down to the board.
+2. **Processing core.** Health tests, debiaser, and a serial Toeplitz extractor, with reference models, assertions, and random backpressure.
+3. **Clock domain crossing and the second source.** MMCM, async FIFO, reset synchronizers, the ring oscillator, the arbiter, and formal proofs on the FIFO and arbiter.
+4. **CSR block and UVM.** The AXI4-Lite register block, a register map, one UVM environment, and coverage closure.
+5. **Performance and the ASIC flow.** A pipelined Toeplitz extractor, area against throughput, a Vivado timing closure report, and an OpenLane run on SKY130.
+6. **Results.** NIST SP 800-90B min-entropy estimates on the raw bits from both sources, NIST STS or dieharder on the extractor output, and a side by side of quantum against ring oscillator.
+
+I'll keep this page updated as blocks land.
