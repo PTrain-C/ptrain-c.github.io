@@ -72,6 +72,8 @@ const experience = defineCollection({
     // Org or club logo (PNG in /public, e.g. 'img/logos/draper.png'). Shown in
     // the experience badge; falls back to the org's initials when missing.
     logo: z.string().optional(),
+    // True when the logo has its own background and should fill the badge.
+    logoFill: z.boolean().default(false),
     // Project pages that came out of this role.
     projects: z.array(z.string()).default([]),
     links,

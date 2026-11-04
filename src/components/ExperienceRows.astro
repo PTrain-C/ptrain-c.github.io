@@ -32,7 +32,7 @@ const topSkills = (ids: string[]) =>
       <li>
         <a href={href(`/experience/${e.id}`)} class:list={{ current: e.data.current }}>
           {e.data.logo ? (
-            <span class="mono-badge logo" aria-hidden="true">
+            <span class:list={['mono-badge logo', { fill: e.data.logoFill }]} aria-hidden="true">
               <img src={href(`/${e.data.logo}`)} alt="" loading="lazy" />
             </span>
           ) : (
@@ -107,9 +107,14 @@ const topSkills = (ids: string[]) =>
     overflow: hidden;
   }
   .mono-badge.logo img {
-    width: 72%;
-    height: 72%;
+    width: 76%;
+    height: 76%;
     object-fit: contain;
+  }
+  .mono-badge.logo.fill img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .current .mono-badge {
     box-shadow:
